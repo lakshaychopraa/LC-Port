@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+window.contextInfo = {"files":[],"materials":[],"crafts":[]};
+// 处理锚点链接跳转（srcDoc iframe 中锚点链接默认行为不正确）
+document.addEventListener('click', function(e) {
+  var anchor = e.target.closest('a');
+  if (anchor) {
+    var href = anchor.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      var targetId = href.slice(1);
+      var target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
+});
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lakshay Chopra — IT Project & Program Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   EDIT BLOCK: GLOBAL DESIGN TOKENS
+   Adjust colors, fonts, and spacing here.
+   ========================================================================== */
+:root{
+  --bg:        #F5F1EB;   /* warm cream background */
+  --accent:    #FF5C4D;   /* coral red accent */
+  --accent-dark:#D84333;  /* darker coral for hover */
+  --accent-soft:#FBE9E6;  /* warm coral tint */
+  --ink:       #333333;   /* body text */
+  --meta:      #666666;   /* secondary / meta text */
+  --hairline:  rgba(51,51,51,0.12);
+  --white:     #FFFFFF;
+  --serif:     'Cormorant Garamond', Georgia, serif;
+  --sans:      'Inter', Helvetica, Arial, sans-serif;
+  --ease:      all .45s cubic-bezier(.22,.61,.36,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  font-size:17px;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+a{color:var(--accent);text-decoration:underline;text-underline-offset:3px;transition:var(--ease);}
+a:hover{color:var(--accent-dark);}
+
+.container{
+  max-width:1440px;
+  margin:0 auto;
+  padding:0 clamp(24px,5vw,72px);
+}
+
+/* ==========================================================================
+   NAVIGATION (sticky)
+   ========================================================================== */
+.nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  background:rgba(245,241,235,0.85);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--hairline);
+  transition:var(--ease);
+}
+.nav-inner{
+  max-width:1440px;
+  margin:0 auto;
+  padding:16px clamp(24px,5vw,72px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+.nav-logo{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:24px;
+  color:var(--accent);
+  white-space:nowrap;
+  text-decoration:none;
+}
+.nav-links{
+  display:flex;
+  gap:clamp(14px,2.5vw,34px);
+  list-style:none;
+  overflow-x:auto;
+}
+.nav-links a{
+  color:var(--meta);
+  text-decoration:none;
+  font-size:14px;
+  font-weight:500;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  white-space:nowrap;
+  position:relative;
+  padding:4px 0;
+}
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;bottom:-2px;
+  height:2px;width:0;
+  background:var(--accent);
+  transition:var(--ease);
+}
+.nav-links a:hover,.nav-links a.active{color:var(--ink);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+
+/* ==========================================================================
+   LAYOUT: asymmetric two-column
+   Left rail (sticky, ~34%) + right content (~66%)
+   ========================================================================== */
+.layout{
+  display:grid;
+  grid-template-columns:34% 66%;
+  gap:clamp(40px,6vw,96px);
+  padding-top:110px; /* offset for fixed nav */
+}
+.rail{
+  position:sticky;
+  top:110px;
+  align-self:start;
+  height:calc(100vh - 140px);
+  overflow-y:auto;
+  padding-bottom:60px;
+}
+.content-col{padding-bottom:80px;}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero{padding-top:16px;}
+.monogram-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:40px;
+}
+.monogram{
+  width:clamp(150px,15vw,190px);
+  aspect-ratio:1/1.25;
+  background:linear-gradient(160deg,#FFB4A8,var(--accent) 90%);
+  border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 24px 60px -20px rgba(255,92,77,0.55);
+  position:relative;
+  overflow:hidden;
+}
+.monogram::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 30% 20%,rgba(255,255,255,0.4),transparent 55%);
+}
+.monogram span{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(52px,5.2vw,70px);
+  color:#fff;
+  letter-spacing:2px;
+  position:relative;
+  z-index:2;
+}
+/* Hero portrait — arch-shaped crop in a cream/coral frame */
+.hero-photo-wrap{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:40px;
+}
+.hero-photo{
+  width:clamp(230px,23vw,290px);
+  height:clamp(300px,33vh,340px);
+  background:linear-gradient(160deg,#FBE9E6,var(--bg) 90%);
+  border:1px solid rgba(255,92,77,0.5);
+  border-radius:50% 50% 10px 10px / 46% 46% 10px 10px;
+  padding:14px;
+  box-shadow:0 24px 60px -24px rgba(255,92,77,0.4);
+  overflow:hidden;
+}
+.hero-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  border-radius:50% 50% 6px 6px / 46% 46% 6px 6px;
+}
+.hero h1{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(60px,7.4vw,96px);
+  line-height:1.02;
+  color:var(--accent);
+  letter-spacing:-1px;
+}
+.hero-sub{
+  font-size:clamp(20px,2vw,26px);
+  font-weight:500;
+  color:var(--ink);
+  margin:18px 0 10px;
+  line-height:1.3;
+}
+.hero-tag{
+  font-size:16px;
+  color:var(--meta);
+  font-style:italic;
+  font-family:var(--serif);
+  font-size:22px;
+  font-weight:500;
+}
+
+/* Stat strip */
+.stat-strip{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin:34px 0;
+}
+.stat{
+  background:var(--white);
+  border:1px solid var(--hairline);
+  border-top:3px solid var(--accent);
+  padding:18px 16px;
+  text-align:center;
+  transition:var(--ease);
+}
+.stat:hover{transform:translateY(-4px);box-shadow:0 14px 30px -18px rgba(255,92,77,0.5);}
+.stat .num{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(24px,2.4vw,32px);
+  color:var(--accent);
+  line-height:1.1;
+}
+.stat .lbl{font-size:11.5px;color:var(--meta);letter-spacing:.5px;text-transform:uppercase;font-weight:500;margin-top:4px;}
+
+/* Professional summary */
+.summary{
+  border-left:3px solid var(--accent);
+  padding:6px 0 6px 22px;
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.85;
+}
+
+/* ==========================================================================
+   SECTION TITLES (left rail)
+   ========================================================================== */
+.section{margin-bottom:clamp(64px,8vw,120px);}
+.section-title{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:clamp(44px,4.6vw,64px);
+  line-height:1;
+  color:var(--accent);
+  margin-bottom:12px;
+  letter-spacing:-.5px;
+}
+.section-title .no{
+  font-family:var(--sans);
+  font-size:14px;
+  font-weight:600;
+  color:var(--meta);
+  display:block;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+}
+.title-rule{
+  width:64px;height:3px;
+  background:var(--accent);
+  border-radius:2px;
+}
+
+/* ==========================================================================
+   CONTACT
+   ========================================================================== */
+.contact-list{list-style:none;}
+.contact-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:16px 0;
+  border-bottom:1px solid var(--hairline);
+}
+.contact-list li:first-child{padding-top:0;}
+.contact-list li:last-child{border-bottom:none;}
+.contact-ico{
+  flex:none;
+  width:40px;height:40px;
+  border-radius:50%;
+  background:var(--accent-soft);
+  color:var(--accent);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;
+}
+.contact-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--meta);font-weight:600;}
+.contact-val{font-size:16.5px;font-weight:500;color:var(--ink);margin-top:2px;word-break:break-word;}
+.contact-val a{text-decoration:none;font-weight:500;}
+.contact-val a:hover{text-decoration:underline;}
+.contact-visual{
+  width:clamp(200px,18vw,240px);
+  aspect-ratio:1/1;
+  background:var(--bg);
+  border:1px solid rgba(255,92,77,0.5);
+  border-radius:20px;
+  padding:12px;
+  margin:0 0 26px auto;
+  box-shadow:0 20px 50px -26px rgba(255,92,77,0.4);
+}
+.contact-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  border-radius:12px;
+}
+
+/* ==========================================================================
+   EXPERIENCE
+   ========================================================================== */
+.job{
+  padding:clamp(28px,3vw,40px) 0;
+  border-bottom:1px solid var(--hairline);
+}
+.job:first-of-type{padding-top:0;}
+.job:last-of-type{border-bottom:none;padding-bottom:0;}
+.job-role{
+  font-family:var(--serif);
+  font-weight:700;
+  font-size:clamp(26px,2.6vw,32px);
+  line-height:1.2;
+  color:var(--ink);
+  margin-bottom:6px;
+}
+.job-role em{color:var(--accent);font-style:normal;}
+.job-company{font-size:16.5px;font-weight:600;color:var(--ink);}
+.job-loc{color:var(--meta);font-weight:400;}
+.job-period{
+  display:inline-block;
+  margin:8px 0 14px;
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.5px;
+  color:var(--accent);
+  background:var(--accent-soft);
+  border-radius:30px;
+  padding:6px 14px;
+}
+.job ul{list-style:none;margin-top:6px;}
+.job ul li{
+  position:relative;
+  padding-left:22px;
+  margin-bottom:11px;
+  color:var(--ink);
+  font-size:16px;
+}
+.job ul li::before{
+  content:"";
+  position:absolute;
+  left:0;top:11px;
+  width:8px;height:8px;
+  border-radius:50%;
+  background:var(--accent);
+}
+
+/* ==========================================================================
+   EDUCATION
+   ========================================================================== */
+.edu-card{
+  background:var(--white);
+  border:1px solid var(--hairline);
+  padding:clamp(24px,3vw,36px);
+  transition:var(--ease);
+}
+.edu-card:hover{box-shadow:0 20px 44px -28px rgba(255,92,77,0.5);}
+.edu-degree{font-family:var(--serif);font-weight:700;font-size:26px;color:var(--ink);}
+.edu-school{font-size:16px;font-weight:500;color:var(--ink);margin-top:4px;}
+.edu-date{font-size:13px;color:var(--meta);margin-top:8px;letter-spacing:.5px;}
+
+/* ==========================================================================
+   SKILLS
+   ========================================================================== */
+.skill-group{margin-bottom:36px;}
+.skill-group:last-child{margin-bottom:0;}
+.skill-group-title{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:26px;
+  color:var(--accent);
+  margin-bottom:16px;
+}
+.skill-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:12px;
+}
+.skill-card{
+  background:var(--white);
+  border:1px solid var(--accent);
+  border-radius:10px;
+  padding:14px 10px;
+  text-align:center;
+  font-size:14.5px;
+  font-weight:500;
+  color:var(--ink);
+  transition:var(--ease);
+  display:flex;align-items:center;justify-content:center;
+}
+.skill-card:hover{
+  transform:translateY(-4px);
+  background:var(--accent-soft);
+  box-shadow:0 12px 26px -14px rgba(255,92,77,0.55);
+}
+
+/* ==========================================================================
+   CERTIFICATIONS
+   ========================================================================== */
+.cert-list{list-style:none;}
+.cert-list li{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:18px 0;
+  border-bottom:1px solid var(--hairline);
+  flex-wrap:wrap;
+}
+.cert-list li:first-child{padding-top:0;}
+.cert-list li:last-child{border-bottom:none;padding-bottom:0;}
+.cert-name{font-size:17px;font-weight:500;color:var(--ink);}
+.cert-year{
+  font-size:13px;
+  font-weight:600;
+  color:var(--accent);
+  background:var(--accent-soft);
+  border-radius:30px;
+  padding:5px 13px;
+  white-space:nowrap;
+}
+.cert-badge{font-size:11px;color:var(--meta);font-weight:500;margin-left:4px;}
+
+/* ==========================================================================
+   BACK TO TOP
+   ========================================================================== */
+.back-top{
+  position:fixed;
+  right:26px;bottom:26px;
+  width:52px;height:52px;
+  border-radius:50%;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  font-size:22px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 14px 34px -12px rgba(255,92,77,0.7);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(20px);
+  transition:var(--ease);
+  z-index:90;
+}
+.back-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+.back-top:hover{background:var(--accent-dark);transform:translateY(-3px);}
+
+/* ==========================================================================
+   SCROLL REVEAL
+   ========================================================================== */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .9s ease-in-out, transform .9s ease-in-out;
+}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer{
+  border-top:1px solid var(--hairline);
+  padding:34px 0 90px;
+  text-align:center;
+  color:var(--meta);
+  font-size:14px;
+}
+footer a{text-decoration:none;}
+
+/* ==========================================================================
+   RESPONSIVE — collapse to single column on mobile
+   ========================================================================== */
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr;padding-top:96px;gap:0;}
+  .rail{
+    position:static;
+    height:auto;
+    overflow:visible;
+    padding-bottom:0;
+  }
+  .nav-links{overflow-x:auto;padding-bottom:6px;}
+}
+
+@media (max-width:560px){
+  .stat-strip{grid-template-columns:1fr 1fr;}
+  .skill-grid{grid-template-columns:repeat(2,1fr);}
+  .nav-logo{font-size:19px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAVIGATION ============ -->
+<nav class="nav" id="topNav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">Lakshay Chopra</a>
+    <ul class="nav-links">
+      <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+      <li><a href="#experience" class="nav-link" data-section="experience">Experience</a></li>
+      <li><a href="#education" class="nav-link" data-section="education">Education</a></li>
+      <li><a href="#skills" class="nav-link" data-section="skills">Skills</a></li>
+      <li><a href="#certifications" class="nav-link" data-section="certifications">Certifications</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container layout" id="top">
+
+  <!-- ============ LEFT RAIL (sticky) ============ -->
+  <aside class="rail">
+
+    <!-- HERO -->
+    <section class="hero reveal">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo">
+          <img src="https://image.youmind.com/user-files/69023c55750ffa72d30c394dc3dd557aba606025aea017fdeee45d7679f06e97?width=4000&height=4000&fit=scale-down" alt="Lakshay Chopra — professional portrait">
+        </div>
+      </div>
+      <h1>Lakshay Chopra</h1>
+      <p class="hero-sub">IT Project &amp; Program Manager — Intelligent Automation &amp; AI</p>
+      <p class="hero-tag">Delivering RPA, Intelligent Automation &amp; Generative AI programs end-to-end.</p>
+
+      <!-- EDIT BLOCK: headline metrics -->
+      <div class="stat-strip">
+        <div class="stat"><div class="num">9.8</div><div class="lbl">Years Experience</div></div>
+        <div class="stat"><div class="num">₹3.94 Cr</div><div class="lbl">Annualized Benefit</div></div>
+        <div class="stat"><div class="num">50+</div><div class="lbl">FTE Savings</div></div>
+        <div class="stat"><div class="num">176</div><div class="lbl">Production Bots Governed</div></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <span class="section-title no">01</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="title-rule"></div>
+      <!-- EDIT BLOCK: contact visual -->
+      <div class="contact-visual">
+        <img src="https://image.youmind.com/user-files/b17e9a0fead0baacdc59d82e58576ebf4b9052cd87ee7e768f0e3957b3abc3de?width=4000&height=4000&fit=scale-down" alt="Lakshay Chopra — workspace illustration">
+      </div>
+      <!-- EDIT BLOCK: contact details -->
+      <ul class="contact-list">
+        <li>
+          <span class="contact-ico">&#9742;</span>
+          <div>
+            <div class="contact-lbl">Phone</div>
+            <div class="contact-val"><a href="tel:+919581265307">+91 95812 65307</a></div>
+          </div>
+        </li>
+        <li>
+          <span class="contact-ico">&#9993;</span>
+          <div>
+            <div class="contact-lbl">Email</div>
+            <div class="contact-val"><a href="mailto:Lakshaychopra1@gmail.com">Lakshaychopra1@gmail.com</a></div>
+          </div>
+        </li>
+        <li>
+          <span class="contact-ico">in</span>
+          <div>
+            <div class="contact-lbl">LinkedIn</div>
+            <div class="contact-val"><a href="https://www.linkedin.com/in/Lakshaychopra95" target="_blank" rel="noopener noreferrer">Lakshaychopra95</a></div>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="section">
+      <span class="section-title no">03</span>
+      <h2 class="section-title">Education</h2>
+      <div class="title-rule"></div>
+      <!-- EDIT BLOCK: education -->
+      <div class="edu-card" style="margin-top:24px;">
+        <div class="edu-degree">Bachelor of Commerce (Accounting)</div>
+        <div class="edu-school">Gandhi Institute of Technology and Management, India</div>
+        <div class="edu-date">Jun 2014 – Apr 2017</div>
+      </div>
+    </section>
+
+  </aside>
+
+  <!-- ============ RIGHT CONTENT COLUMN ============ -->
+  <main class="content-col">
+
+    <!-- PROFESSIONAL SUMMARY -->
+    <section class="section reveal" style="margin-top:20px;">
+      <p class="summary">
+        IT Project &amp; Program Manager with 9.8 years across BFSI (SBI Card, HSBC, Capgemini) delivering RPA, intelligent automation, and Generative AI programs end-to-end. Track record of ₹3.94 Cr annualized benefit, 50+ FTE of savings, and governance of 176 production bots. Strengths in scope/cost/schedule delivery, risk, issue and change management, vendor and stakeholder management, and financial governance. Certified Scrum Master and Six Sigma Green Belt; PMP in progress.
+      </p>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="section reveal">
+      <span class="section-title no" style="display:none;">02</span>
+
+      <!-- EDIT BLOCK: Job a -->
+      <article class="job">
+        <h3 class="job-role">Senior IT Project Manager — <em>AI COE</em></h3>
+        <p class="job-company">SBI Card, India</p>
+        <span class="job-period">Aug 2025 – Present</span>
+        <ul>
+          <li>Led an AI-COE automation program delivering ₹3.94 Cr in annualized benefit through feasibility-driven prioritization and end-to-end delivery.</li>
+          <li>Managed complex technology projects and programs end-to-end across scope, cost, schedule, and quality, defining clear objectives, success criteria, and measurable outcomes.</li>
+          <li>Planned resources, aligned cross-functional teams, and oversaw SIT/UAT phases to ensure quality deliverables and user acceptance.</li>
+          <li>Tracked risks, issues, and dependencies proactively, implementing mitigation strategies and leading scope and budget impact assessments within structured risk, issue, and change management.</li>
+          <li>Delivered AI-enabled, data-driven analytics programs, including responsible AI solutions and automation leveraging RPA, Python, No-Code/Low-Code AI tools, and Generative AI.</li>
+          <li>Translated AI capabilities and business requirements into outcomes aligned to customer strategy, applying knowledge of Machine Learning, data platforms, analytics pipelines, and model lifecycle.</li>
+          <li>Managed risks related to data readiness, data quality, model governance, and ethical AI considerations.</li>
+          <li>Acted as primary liaison between executive leadership, process owners, Technology, and Finance, orchestrating multidisciplinary teams of data scientists, engineers, architects, and business stakeholders.</li>
+          <li>Onboarded and managed vendors across the project lifecycle; managed financial governance, forecasting, cost estimation, budget preparation, and vendor contract negotiation.</li>
+          <li>Ensured compliance with InfoSec, regulatory, and governance requirements, maintaining audit readiness through documentation and process controls.</li>
+          <li>Mapped AS-IS and TO-BE processes in Visio; led hiring, coaching, and performance management, and presented data-driven roadmaps to senior management.</li>
+        </ul>
+      </article>
+
+      <!-- EDIT BLOCK: Job b -->
+      <article class="job">
+        <h3 class="job-role">Manager — <em>Projects Ops Support</em></h3>
+        <p class="job-company">HSBC, India</p>
+        <span class="job-period">Mar 2023 – Jul 2025</span>
+        <ul>
+          <li>Directed developers and solution architects across RPA and Gen AI builds, maintaining a structured reporting cadence to keep delivery on scope and schedule.</li>
+          <li>Delivered a 50-FTE benefit across 3 projects plus non-FTE gains in operational efficiency and application turnaround, via RPA (BluePrism and UiPath) /non-RPA, Power Apps, Gen AI, Python, and Alteryx solutions.</li>
+          <li>Led cross-functional projects for the Singapore region across multiple product lines, reducing application processing time by ~40% and quality-related issues by ~7%.</li>
+          <li>Led the Global Shrinkage initiative for Underwriting across 5 GSCs, securing a 30% shrinkage agreement for all offshore operations.</li>
+          <li>Established and managed the digital-workforce helpdesk for RPA, governing performance of 176 production bots and resolving incidents, exceptions, and utilization challenges.</li>
+          <li>Defined and tracked bot-performance KPIs, processed volumes, exception rates, and utilization and built dashboards to track productivity and other KPIs.</li>
+          <li>Engaged in PRD reviews, feature prioritization, scoping, OKRs, scheduling, defect management, beta programs, and product release and maintenance.</li>
+          <li>Calculated post-deployment ROI and FTE savings; partnered with senior leadership (SVP, MD) on strategic decision-making, program management, and initiative execution.</li>
+          <li>Mentored a high-performing team, with 4 members earning promotions through successful project delivery; mapped AS-IS and TO-BE flows in Visio.</li>
+        </ul>
+      </article>
+
+      <!-- EDIT BLOCK: Job c -->
+      <article class="job">
+        <h3 class="job-role">Team Lead — <em>Intelligent Automation</em></h3>
+        <p class="job-company">Capgemini, India</p>
+        <span class="job-period">Mar 2022 – Feb 2023</span>
+        <ul>
+          <li>Collaborated with business teams to identify automation opportunities, assess feasibility, and design solutions, delivering a 4-FTE saving for a South American client.</li>
+          <li>Led a team of 7, providing coaching and coordination to deliver high-quality outputs within deadlines.</li>
+          <li>Acted as solution architect across RPA and non-RPA projects, ensuring strategic alignment and successful delivery.</li>
+        </ul>
+      </article>
+
+      <!-- EDIT BLOCK: Job d -->
+      <article class="job">
+        <h3 class="job-role">Assistant Manager — <em>Projects</em></h3>
+        <p class="job-company">HSBC, India</p>
+        <span class="job-period">Mar 2019 – Mar 2022</span>
+        <ul>
+          <li>Built a Blue Prism bot that streamlined sanctioning notes for secured-intermediary processes, contributing to an RPA program targeting 13 FTE of efficiency.</li>
+          <li>Aligned change activities with project timelines and integrated change deliverables with project milestones, coordinating between change and technical teams.</li>
+          <li>Crafted clear, consistent messaging and managed stakeholder engagement through newsletters and townhalls.</li>
+          <li>Identified change-related risks, coordinated impact assessments, and tracked mitigation efforts.</li>
+          <li>Tracked change readiness and adoption metrics, reporting progress to governance forums and escalating risks to delivery.</li>
+        </ul>
+      </article>
+
+      <!-- EDIT BLOCK: Job e -->
+      <article class="job">
+        <h3 class="job-role">Customer Service Executive</h3>
+        <p class="job-company">HSBC, India</p>
+        <span class="job-period">May 2017 – Mar 2019</span>
+        <ul>
+          <li>Managed account maintenance for UK customers across 19 queues; cross-trained on 16 queues within 6 months, enabling effective team load balancing.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section reveal">
+      <span class="section-title no" style="display:none;">04</span>
+
+      <!-- EDIT BLOCK: skill categories & cards -->
+      <div class="skill-group">
+        <h4 class="skill-group-title">Program &amp; Project Management</h4>
+        <div class="skill-grid">
+          <div class="skill-card">End-to-end delivery</div>
+          <div class="skill-card">Risk/Issue/Change management</div>
+          <div class="skill-card">SIT/UAT</div>
+          <div class="skill-card">Budgeting &amp; forecasting</div>
+          <div class="skill-card">Cost estimation</div>
+          <div class="skill-card">Vendor management</div>
+          <div class="skill-card">Stakeholder management</div>
+          <div class="skill-card">Governance &amp; audit readiness</div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4 class="skill-group-title">Automation &amp; AI</h4>
+        <div class="skill-grid">
+          <div class="skill-card">RPA (Blue Prism)</div>
+          <div class="skill-card">Power Automate/PAD</div>
+          <div class="skill-card">Generative AI</div>
+          <div class="skill-card">No-Code/Low-Code AI</div>
+          <div class="skill-card">Machine Learning concepts</div>
+          <div class="skill-card">Process re-engineering</div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4 class="skill-group-title">Data &amp; Tools</h4>
+        <div class="skill-grid">
+          <div class="skill-card">Python</div>
+          <div class="skill-card">Alteryx</div>
+          <div class="skill-card">Power Apps</div>
+          <div class="skill-card">Visio</div>
+          <div class="skill-card">JIRA</div>
+          <div class="skill-card">Confluence</div>
+          <div class="skill-card">MS Excel/PowerPoint</div>
+          <div class="skill-card">ChatGPT</div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4 class="skill-group-title">Methodologies</h4>
+        <div class="skill-grid">
+          <div class="skill-card">Agile / Scrum</div>
+          <div class="skill-card">Six Sigma</div>
+          <div class="skill-card">AS-IS / TO-BE process mapping</div>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4 class="skill-group-title">Domains</h4>
+        <div class="skill-grid">
+          <div class="skill-card">BFSI — cards, underwriting, secured-intermediary operations</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section reveal">
+      <span class="section-title no" style="display:none;">05</span>
+
+      <!-- EDIT BLOCK: certifications -->
+      <ul class="cert-list">
+        <li><span class="cert-name">Certified Scrum Master</span><span class="cert-year">2024</span></li>
+        <li><span class="cert-name">KORE.AI Chatbot Developer</span><span class="cert-year">2022</span></li>
+        <li><span class="cert-name">Blue Prism Developer Certification</span><span class="cert-year">2020</span></li>
+        <li><span class="cert-name">Certified Six Sigma Green Belt</span><span class="cert-year">2019</span></li>
+        <li><span class="cert-name">PMP <span class="cert-badge">— in progress</span></span><span class="cert-year">In progress</span></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Lakshay Chopra. Crafted with care.</p>
+      <p style="margin-top:6px;"><a href="mailto:Lakshaychopra1@gmail.com">Lakshaychopra1@gmail.com</a></p>
+    </footer>
+
+  </main>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" aria-label="Back to top">&#8593;</button>
+
+<script>
+/* ==========================================================================
+   BACK TO TOP — show on scroll, smooth scroll to top
+   ========================================================================== */
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+  backTop.classList.toggle('show', window.scrollY > 500);
+});
+backTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ==========================================================================
+   SCROLL REVEAL — fade/translate-up via IntersectionObserver
+   ========================================================================== */
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+revealEls.forEach(el => revealObserver.observe(el));
+
+/* ==========================================================================
+   ACTIVE NAV LINK — highlight section currently in view
+   ========================================================================== */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+function setActive(){
+  let current = '';
+  sections.forEach(sec => {
+    if (window.scrollY >= sec.offsetTop - 160){
+      current = sec.getAttribute('id');
+    }
+  });
+  // Hero (top of page) → default to contact
+  if (window.scrollY < 140) current = 'contact';
+
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.dataset.section === current);
+  });
+}
+
+window.addEventListener('scroll', setActive);
+setActive();
+
+/* ==========================================================================
+   SMOOTH SCROLL for nav links (with fixed-nav offset)
+   ========================================================================== */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e){
+    const targetId = this.getAttribute('href');
+    if (targetId === '#top'){
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    const target = document.querySelector(targetId);
+    if (target){
+      e.preventDefault();
+      const top = target.getBoundingClientRect().top + window.scrollY - 90;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
